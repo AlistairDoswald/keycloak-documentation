@@ -28,9 +28,9 @@ The following example shows how to initialize the JavaScript adapter:
     <script src="keycloak.js"></script>
     <script>
         var keycloak = Keycloak();
-        keycloak.init().then(function(authenticated) {
+        keycloak.init().success(function(authenticated) {
             alert(authenticated ? 'authenticated' : 'not authenticated');
-        }).catch(function() {
+        }).error(function() {
             alert('failed to initialize');
         });
     </script>
@@ -102,9 +102,9 @@ token was successfully refreshed and for example display an error to the user if
 
 [source,javascript]
 ----
-keycloak.updateToken(30).then(function() {
+keycloak.updateToken(30).success(function() {
     loadData();
-}).catch(function() {
+}).error(function() {
     alert('Failed to refresh token');
 });
 ----
@@ -164,7 +164,7 @@ keycloak.init({ flow: 'hybrid' })
 [#hybrid-apps-with-cordova]
 ==== Hybrid Apps with Cordova
 
-Keycloak support hybird mobile apps developed with https://cordova.apache.org/[Apache Cordova]. The Javascript adapter has two modes for this: `cordova` and `cordova-native`:
+Keycloak support hybrid mobile apps developed with https://cordova.apache.org/[Apache Cordova]. The Javascript adapter has two modes for this: `cordova` and `cordova-native`:
 
 The default is cordova, which the adapter will automatically select if no adapter type has been configured and window.cordova is present.
 When logging in, it will open an https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/[InApp Browser] that lets the user interact with {project_name} and afterwards returns to the app by redirecting to `http://localhost`. Because of this, you must whitelist this URL as a valid redirect-uri in the client configuration section of the Administration Console.
@@ -392,9 +392,9 @@ For example:
 
 [source,javascript]
 ----
-keycloak.loadUserProfile().then(function(profile) {
+keycloak.loadUserProfile().success(function(profile) {
         alert(JSON.stringify(profile, null, "  "));
-    }).catch(function() {
+    }).error(function() {
         alert('Failed to load user profile');
     });
 ----
@@ -413,13 +413,13 @@ For example:
 
 [source,javascript]
 ----
-keycloak.updateToken(5).then(function(refreshed) {
+keycloak.updateToken(5).success(function(refreshed) {
         if (refreshed) {
             alert('Token was successfully refreshed');
         } else {
             alert('Token is still valid');
         }
-    }).catch(function() {
+    }).error(function() {
         alert('Failed to refresh the token, or the session has expired');
     });
 ----
